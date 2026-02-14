@@ -4,7 +4,7 @@
 
 <div align="center">
   
-  [![Typing SVG](https://readme-typing-svg.herokuapp.com?font=Fira+Code&weight=600&size=24&pause=1000&color=00FF99&center=true&vCenter=true&width=600&lines=Initializing+Project+Cortex...;Building+Agentic+Memory+Systems;Failing+with+Honour+Mindset;Status:+INNOVATING.)](https://git.io/typing-svg)
+  [![Typing SVG](https://readme-typing-svg.herokuapp.com?font=Fira+Code&weight=600&size=24&pause=1000&color=00FF99&center=true&vCenter=true&width=600&lines=Initializing+Project+CortexV2...;Building+Agentic+Memory+Systems;Failing+with+Honour+Mindset;Status:+INNOVATING.)](https://git.io/typing-svg)
 
 </div>
 
@@ -14,7 +14,7 @@
 
 > *"Failing with Honour."*
 
-I am **Haziq**, an **AI, IoT, and Full-Stack Engineer** based in Singapore. I specialize in bridging the gap between high-level AI reasoning and low-level hardware execution. My mission is to build **Project Cortex**, making advanced assistive technology accessible and affordable for everyone.
+I am **Haziq/IRSPlays**, an **AI, IoT, and Full-Stack Engineer** based in Singapore. I specialize in bridging the gap between high-level AI reasoning and low-level hardware execution. My mission is to build **Project Cortex V2**, making advanced assistive technology accessible and affordable for everyone beating a **$4000 device** with a **$300 personal product**.
 
 ---
 
@@ -38,28 +38,38 @@ I am **Haziq**, an **AI, IoT, and Full-Stack Engineer** based in Singapore. I sp
 #### 🦾 [**Project Cortex V2**](https://github.com/IRSPlays/ProjectCortexV2)
 An open-source assistive wearable platform disrupting the $4,000+ medical device market.
 * **Reflex Layer:** Local **YOLO v26** for instant safety detection.
-* **Reasoning Layer:** **Gemini 2.5/3 Flash** for deep multimodal scene understanding.
+* **Reasoning Layer:** **Gemini 3 Flash** for deep multimodal scene understanding.
 * **Spatial Audio:** 3D navigation cues relative to the user's torso.
 
 #### 🤖 [**Gemini-Cortex**](https://github.com/IRSPlays/Gemini-Cortex)
 An agentic wearable that learns, explains, and remembers. Features "Object Recall" via a local vector memory of visual frames.
 
 #### 📊 [**NRPC-2026-Platform**](https://github.com/IRSPlays/NRPC-2026-Platform)
-A mission-critical competition management system for the National Robotics Programming Competition. Built with **React**, **Node.js**, and **SQLite**.
+A mission-critical competition management system for the National Robotics Programming Competition. 
+* Built to handle over **500 teams** 
+* Made with **React**, **Node.js**, and **SQLite**. 
+* Launched in 2026 with Railway deployment.
+
+#### Gemini Cortex will combine with Project Cortex V2 to create an affordable, powerful assistive device that learns, explains, and remembers
 
 ---
 
 ### ⚡ **GitHub Ecosystem**
 
 <div align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=IRSPlays&show_icons=true&theme=tokyonight&hide_border=true&bg_color=0D1117&title_color=00FF99&icon_color=00FF99" height="180" alt="IRSPlays Stats" />
-  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=IRSPlays&layout=compact&theme=tokyonight&hide_border=true&bg_color=0D1117&title_color=00FF99&icon_color=00FF99" height="180" alt="IRSPlays Languages" />
+  <p align="center">Github stats:</p>
+  <div align="center">
+    <img src="https://img.shields.io/github/followers/IRSPlays?label=Followers&style=social" alt="Followers" />
+    <img src="https://img.shields.io/github/stars/IRSPlays?style=social" alt="Stars" />
+    <img src="https://img.shields.io/github/languages/top/IRSPlays/IRSPlays?color=00FF99" alt="Top language" />
+    <img src="https://img.shields.io/github/last-commit/IRSPlays/IRSPlays?color=00FF99" alt="Last commit" />
+  </div>
 </div>
 
 <br>
 
 <div align="center">
-  <img src="https://github-readme-streak-stats.herokuapp.com/?user=IRSPlays&theme=tokyonight&hide_border=true&background=0D1117&stroke=00FF99&ring=00FF99&fire=00FF99&currStreakLabel=00FF99" alt="Streak Stats" />
+  <img src="https://streak-stats.demolab.com/?user=IRSPlays&theme=tokyonight&hide_border=true&background=0D1117&stroke=00FF99&ring=00FF99&fire=00FF99&currStreakLabel=00FF99" alt="Streak Stats" />
 </div>
 
 ---

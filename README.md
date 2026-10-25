@@ -53,7 +53,7 @@ I founded [**Asirive**](https://www.asirive.com/) to build *ambient software and
 <td align="center" valign="middle"><img src="assets/cortex/cortex-v3-worn.jpg" width="300" alt="A team member wearing the Cortex V3 glasses" /><br/><sub><b>Worn</b>: a lighter, open-ear build</sub></td>
 </tr>
 <tr>
-<td colspan="2" align="center"><img src="assets/cortex/savh-field-test.jpg" width="520" alt="A field test with an SAVH participant using Cortex with a white cane" /><br/><sub><b>Field testing</b> with an SAVH participant, white cane in hand</sub></td>
+<td colspan="2" align="center"><img src="assets/cortex/savh-field-test.jpg" width="640" alt="A field test with an SAVH participant using Cortex with a white cane" /><br/><sub><b>Field testing</b> with an SAVH participant, white cane in hand</sub></td>
 </tr>
 </table>
 </div>

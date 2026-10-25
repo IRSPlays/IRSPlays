@@ -90,30 +90,70 @@ I founded [**Asirive**](https://www.asirive.com/) to build *ambient software and
 
 ---
 
-## Meet Cyph: my furry co-engineer
+## Cyph and VectorM: a fox with a body
+
+<div align="center">
+<img src="assets/cypher-talk.gif" width="150" alt="Cypher talking" />
+<img src="assets/cypher-idle.gif" width="150" alt="Cypher idling" />
+<img src="assets/cypher-listen.gif" width="150" alt="Cypher listening" />
+</div>
+
+[**Cyph, the Furry Engineer**](https://github.com/IRSPlays/Cyph) started as a terminal pet for a robot arm and grew into a small system: a personal co-engineer with a body. It lives on my desktop and my phone, plans my day with me, remembers me, talks, and moves a real 6-joint arm ([VectorM](#vectorm-the-arm-firmware), below).
+
+<div align="center">
+<img src="assets/cyph/desktop-home.jpg" width="880" alt="Cyph desktop app home page: pixel face, today's plan, arm joints, chat" />
+<br/><sub>The desktop app. Screens here are the real UI running on sample data, not my own calendar or chats.</sub>
+</div>
 
 <table>
 <tr>
-<td width="220" align="center">
-<img src="assets/cypher-talk.gif" width="190" alt="Cypher talking" /><br/>
-<img src="assets/cypher-listen.gif" width="190" alt="Cypher listening, ears perked" />
+<td width="50%" valign="top">
+
+**The system**
+- **24/7 server** on a home machine: the brain, planner and memory, over pinned TLS with per-device revocable tokens
+- **Desktop and Android apps:** one React UI wrapped with Tauri 2, with Rust owning the network
+- **Native Android widgets and notifications** that keep working when the app is closed
+- **Telegram bot** for when I'm away from both
+- **Local-first brain:** a Qwen model for chat and arm commands, with harder questions routed to Gemini under a daily cap
+
 </td>
-<td valign="top">
+<td width="50%" valign="top">
 
-[**Cyph**](https://github.com/IRSPlays/Cyph) is a pixel-art fox who lives in my terminal, talks, remembers me, and moves a **6-joint VectorM robot arm**.
-
-- **Local brain:** a Qwen model through `llama-server`, so conversations stay on my PC
-- **Voice:** VAD, speech-to-text, TTS, and barge-in interruption
-- **Words move the arm:** hidden tags in replies drive the joints, with limits, an e-stop and a no-hardware simulator
-- **Memory:** Markdown notes about me and my contacts, curated in the background
-- **Telegram:** chat from my phone, even when the desktop app is closed
-- **Smart routing:** harder questions go to Gemini, with a daily cap and a local fallback
-
-*The face animations on this page are rendered from Cyph's own face engine.*
+**What he does**
+- **Planner:** day, week, month and agenda views, typed quick-add, recurring items, conflict detection
+- **Long-term memory:** capped Markdown files, curated in the background and reviewed nightly, with secrets filtered out
+- **Voice:** Silero VAD, streaming speech-to-text, TTS, barge-in and a "Hey Cyph" wake word
+- **Speaks first, sparingly:** morning brief, heads-ups before things start, quiet hours
+- **Moves the arm** by words or by a job: "pick up the red pen" streams the camera to Gemini Robotics-ER and runs its tool calls on the body
 
 </td>
 </tr>
 </table>
+
+<div align="center">
+<table>
+<tr>
+<td align="center" valign="middle"><img src="assets/cyph/phone-tour.gif" width="230" alt="Phone app tour: chat, plan, month, agenda, add item" /><br/><sub>The phone app</sub></td>
+<td align="center" valign="middle"><img src="assets/cyph/desktop-arm.jpg" width="560" alt="The Arm page: camera, joints, expressions, telemetry and e-stop" /><br/><sub>The Arm page (mock camera and arm agent)</sub></td>
+</tr>
+<tr>
+<td align="center" valign="middle"><img src="assets/cyph/phone-widget-strip-real.png" width="230" alt="Cyph's strip widget on my real home screen" /><br/><sub>Widget on my real home screen</sub></td>
+<td align="center" valign="middle"><img src="assets/cyph/notif-reminder.png" width="300" alt="A Cyph reminder notification" /><br/><sub>A reminder card, with his face as the avatar</sub></td>
+</tr>
+</table>
+</div>
+
+```mermaid
+flowchart LR
+    You([You]) --> Desk["Desktop app"] & Phone["Phone app<br/>widgets, notifications"] & TG["Telegram"]
+    Desk & Phone & TG --> Core["Cyph Core<br/>FastAPI, pinned TLS<br/>chat, plan, memory"]
+    Core <--> Gem["Gemini"]
+    Core --- Mem[("Memory + planner DB")]
+    Agent["Arm agent (PC)"] -- "outbound websocket" --> Core
+    Agent --> Arm{{"VectorM arm"}}
+```
+
+Privacy is a design rule: memory, transcripts and keys stay on my machines, Telegram is owner-only, and widgets never show chat text on the lock screen. Study mode, phone voice, QR pairing and push notifications are not built yet, and the [repo](https://github.com/IRSPlays/Cyph) says so plainly.
 
 <details>
 <summary><b>Cypher's mood reel</b></summary>
@@ -122,6 +162,31 @@ I founded [**Asirive**](https://www.asirive.com/) to build *ambient software and
 <img src="assets/cypher-moods.gif" width="300" alt="Cypher cycling through moods: rest, happy, excited, curious, love, smug, sleepy, yawn, startle, laugh, think, dance" />
 </div>
 </details>
+
+### VectorM: the arm firmware
+
+[**VectorM**](https://github.com/IRSPlays/VectorM) is the body: bare-metal firmware for a 6-DOF robot arm. I replaced the stock firmware on its STM32 controller so the PC can do the thinking (kinematics, planning, vision) while the chip delivers precise, glitch-free servo motion over a CRC-checked serial protocol. It works on its own too: anything that speaks the protocol can move the arm.
+
+| | |
+| :-- | :-- |
+| **MCU and code** | STM32F103C8T6, plain C with no HAL and no RTOS, **6.7 KB** of flash |
+| **PWM** | 2 MHz timer tick, 0.5 us per step, about **0.068 degrees** per step, hardware-timed 50.00 Hz |
+| **Motion** | 1 kHz engine, minimum-jerk (smootherstep) profile, so no overshoot or jitter; retargeting mid-move starts from the live position |
+| **Glitch-free pulses** | timer-preloaded, so updates latch at the cycle boundary |
+| **Protocol** | binary framing, CRC-16/CCITT, sequence numbers, ACK/NAK on every command, 32-point stream queue for waypoint playback |
+| **Calibration** | per-servo pulse range, trim and direction, saved to flash |
+| **Host tools** | Python `ArmClient`, a serial-bootloader flasher with read-back verify, pin scanning for board bring-up, and **26 animal-like moods** for the arm (what Cyph uses) |
+
+```python
+from arm_client import ArmClient
+
+with ArmClient("COM15") as arm:
+    arm.move_joints([135, 135, 135, 135, 135, 135], time_ms=1500)
+    arm.stream_trajectory(waypoints, dt_ms=20)    # path playback
+    arm.torque(False)                             # go limp to pose it by hand
+```
+
+[VectorM repo](https://github.com/IRSPlays/VectorM) · [Cyph repo](https://github.com/IRSPlays/Cyph)
 
 ---
 
